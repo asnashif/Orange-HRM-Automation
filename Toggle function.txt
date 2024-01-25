@@ -1,0 +1,61 @@
+package OrangeHRM;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Toggle {
+	//Global Declarations
+		public String baseUrl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+		String driverPath="C:\\Users\\Asna\\eclipse-workspace\\SQAassignment\\ResourceFile\\ChromeDriver\\V113.exe";
+		public WebDriver driver;
+		
+		@BeforeTest
+		public void launchBrowser() throws InterruptedException {
+		System.out.println("Launching Browser");
+		System.setProperty("webdriver.chrome.driver", driverPath);
+		driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get(baseUrl);
+		
+		Thread.sleep(3000);
+		
+		WebElement UserName = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		UserName.sendKeys("Admin");
+		
+		WebElement PasswordTxt = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt.sendKeys("admin123");
+		
+		WebElement LoginBtn = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn.click();
+		
+		Thread.sleep(3000);
+
+		System.out.println("Logged in to the Orange HRM system");
+		}
+		
+		
+		@Test
+		public void ToggleButton() throws InterruptedException {
+			WebElement ToggleBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[1]/aside/nav/div[2]/div/div/button"));
+			ToggleBtn.click();
+			System.out.println("Test 2.1 : Toggle button clicked to minimize the menu");
+			Thread.sleep(3000);
+			
+			WebElement ToggleBtn2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[1]/aside/nav/div[2]/div/div/button"));
+			ToggleBtn2.click();
+			System.out.println("Test 2.2 : Toggle button clicked to maximize the menu");
+			Thread.sleep(3000);
+		}
+		
+		
+
+		@AfterTest
+		public void aftertest() {
+			driver.quit();
+		}
+}

@@ -1,0 +1,297 @@
+package OrangeHRM;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Time {
+			//Global Declarations
+			public String baseUrl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+			String driverPath="C:\\Users\\Asna\\eclipse-workspace\\SQAassignment\\ResourceFile\\ChromeDriver\\V113.exe";
+			public WebDriver driver;
+			
+			@BeforeTest
+			public void launchBrowser() throws InterruptedException {
+			System.out.println("Launching Browser");
+			System.setProperty("webdriver.chrome.driver", driverPath);
+			driver=new ChromeDriver();
+			driver.manage().window().maximize();
+			driver.get(baseUrl);
+			
+			Thread.sleep(3000);
+			
+			WebElement UserName = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+			UserName.sendKeys("Admin");
+			
+			WebElement PasswordTxt = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+			PasswordTxt.sendKeys("admin123");
+			
+			WebElement LoginBtn = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+			LoginBtn.click();
+			
+			Thread.sleep(3000);
+
+			System.out.println("Logged in to the Orange HRM system");
+				
+			}
+			
+			
+			@Test(priority=1)
+			public void ClickTime() throws InterruptedException {
+				
+				//Test 3.1.1 : Check whether 'Time' is clickable and whether it redirects to the Time sheet page.
+				
+				WebElement TimeBtn = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[1]/aside/nav/div[2]/ul/li[4]/a"));
+				TimeBtn.click();
+				System.out.println("Test 3.1.1 : Check whether 'Time' is clickable and whether it redirects to the Time sheet page.");
+				Thread.sleep(3000);	
+			}
+			
+			@Test (priority=2)
+			public void SearchAndSelectEmployee() throws InterruptedException{
+				
+				//Test 3.2.1 : Check whether the user can get redirected to the employee time sheet without entering any employee name.
+				
+				WebElement searchTxt1=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[1]/div/div/div/div[2]/div/div/input"));
+				
+				WebElement viewBtn1=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[2]/button"));
+				viewBtn1.click();
+				
+				System.out.println("Test 3.2.1 : Check whether the user can get redirected to the 'Employee Time sheet' without entering any employee name.");
+				Thread.sleep(3000);
+				driver.navigate().refresh();
+			
+				
+				//Test 3.2.2 : Check whether the user can get redirected to the entered employee time sheet.
+				Thread.sleep(3000);
+				WebElement searchTxt2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[1]/div/div/div/div[2]/div/div/input"));
+				searchTxt2.sendKeys("Dominic Chase");
+				Thread.sleep(2000);
+				
+				WebElement selectDominic=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[1]/div/div/div/div[2]/div/div[2]/div/span"));
+				selectDominic.click();
+				Thread.sleep(2000);
+				
+				WebElement viewBtn2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[2]/button"));
+				Thread.sleep(2000);
+				viewBtn2.click();
+				
+				System.out.println("Test 3.2.2 : Check whether the user can get redirected to the entered employee time sheet.");
+				Thread.sleep(3000);
+				}
+			
+			@Test(priority=3)
+			public void TimesheetPeriodNavigator() throws InterruptedException {
+				
+				//Test 3.3.1 : Check whether the user can do calendar time period navigation forward.
+				
+				WebElement frwrdBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[1]/div[2]/div/button[2]"));
+				frwrdBtn.click();
+				
+				System.out.println("Test 3.3.1 : Check whether the user can do calendar time period navigation forward.");
+				Thread.sleep(2000);
+				
+				//Test 3.3.2 : Check whether the user can do calendar time period navigation Backward.
+				WebElement bckwrdBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[1]/div[2]/div/button[1]"));
+				bckwrdBtn.click();
+				
+				System.out.println("Test 3.3.2 : Check whether the user can do calendar time period navigation Backward.");
+				Thread.sleep(2000);
+				
+				}
+			
+			@Test(priority=4)
+			public void selectDate() throws InterruptedException {
+				
+				//Test 3.4.1 : Check whether the user can select date from the calendar.
+				Thread.sleep(2000);
+				WebElement selectCalendar=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[1]/div[2]/div/div/div[2]/div/div/input"));
+				selectCalendar.click();
+				Thread.sleep(2000);
+				
+				WebElement selectDate=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[1]/div[2]/div/div/div[2]/div/div[2]/div/div[3]/div[3]/div"));
+				selectDate.click();
+				System.out.println("Test 3.4.1 : Check whether the user can select date from the calendar.");
+				Thread.sleep(2000);
+			}
+			
+			@Test(priority=5)
+			public void createTimesheet() throws InterruptedException{
+				
+				//Test 3.5.1 : Check whether the user can get redirected to the timsheet page.
+				Thread.sleep(2000);
+				WebElement resetBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button"));
+				resetBtn.click();
+				
+				
+				Thread.sleep(3000);
+				WebElement editBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[1]"));
+				editBtn.click();
+				
+				System.out.println("Test 3.5.1 : Check whether the user can get redirected to the timesheet page.");
+				Thread.sleep(3000);
+			}
+			
+			@Test(priority=6)
+			public void editTimesheet() throws InterruptedException {
+				//Test 3.6 : Validate Add Row function .
+				Thread.sleep(2000);
+				WebElement addRowBtn =driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td/button"));
+				addRowBtn.click();
+				
+				System.out.println("Test 3.6.1 : Validate 'Add Row' function.");
+				
+										
+				//Test 3.6.2 : Check whether the user can save time entry without Project and Activity.
+				Thread.sleep(2000);
+				WebElement timeTxt1=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td[4]/div/div[2]/input"));
+				timeTxt1.sendKeys("3");
+				
+				WebElement saveBtn1=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[3]"));
+				saveBtn1.click();
+				System.out.println("Test 3.6.2 : Check whether the user can save time entry without 'Project' and 'Activity'.");
+			
+				
+				//Test 3.6.3 : Check whether the user can save time entry with only the project and time.
+				Thread.sleep(2000);
+				WebElement searchprjct1=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td[1]/div/div[2]/div/div/input"));
+				searchprjct1.sendKeys("Apache");
+				
+				Thread.sleep(2000);
+				WebElement selectApache=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td[1]/div/div[2]/div/div[2]/div/span"));
+				selectApache.click();
+				Thread.sleep(2000);
+				
+								
+				WebElement saveBtn2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[3]"));
+				saveBtn2.click();
+				System.out.println("Test 3.6.3 : Check whether the user can save time entry with only the 'Project' and 'Time'.");
+
+				
+				//Test 3.6.4 : Validate 'Reset' function.
+				Thread.sleep(2000);
+				WebElement resetBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[2]"));
+				resetBtn.click();
+				System.out.println("Test 3.6.4 : Validate 'Reset' function.");
+				
+				Thread.sleep(3000);
+				
+				
+
+				//Test 3.6.5 : Validate Delete function.
+				
+				Thread.sleep(2000);
+				WebElement delete=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[10]"));
+				delete.click();
+				
+				System.out.println("Test 3.6.5 : Validate 'Delete' function.");
+				
+				
+				//Test3.6.6 : Validate Save function.
+				Thread.sleep(2000);
+				
+				//select project
+				WebElement searchBtn2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[1]/div/div[2]/div/div[1]/input"));
+				searchBtn2.click();
+				
+				Thread.sleep(2000);
+				searchBtn2.sendKeys("Apache");
+				
+				Thread.sleep(2000);
+				WebElement slctApche =driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[1]/div/div[2]/div/div[2]/div/span"));
+				slctApche.click();
+				
+				//select activity
+				WebElement slctActvty2=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[2]/div/div[2]/div/div/div[1]"));
+				slctActvty2.click();
+				
+				Thread.sleep(2000);
+				WebElement qaTesting =driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[2]/div/div[2]/div/div[2]/div[6]/span"));
+				qaTesting.click();
+				
+				//Add data for monday
+				Thread.sleep(2000);
+				WebElement Monday=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[3]/div/div[2]/input"));
+				Monday.sendKeys("2");
+				
+					//Add note for monday
+				Thread.sleep(2000);
+				WebElement mNote=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[3]/button"));
+				mNote.click();
+				
+				Thread.sleep(2000);
+				WebElement addNote=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[4]/div/div/div/form/div[2]/div/div[2]/textarea"));
+				addNote.sendKeys("Completed the Regression Testing.");
+				
+				Thread.sleep(3000);
+				WebElement saveNote=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[4]/div/div/div/form/div[3]/button[2]"));
+				saveNote.click();
+				
+					//Add Data for Tuesday
+				Thread.sleep(2000);
+				WebElement tuesday=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[4]/div/div[2]/input"));
+				tuesday.sendKeys("3");
+				
+					//Add Data for wednesday
+				Thread.sleep(2000);
+				WebElement wednesday=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[5]/div/div[2]/input"));
+				wednesday.sendKeys("4.5");								
+
+					//Add Data for Thursday
+				Thread.sleep(2000);
+				WebElement thursday=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[6]/div/div[2]/input"));
+				thursday.sendKeys("7");
+				
+					//Add Data for friday
+				Thread.sleep(2000);
+				WebElement friday=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[7]/div/div[2]/input"));
+				friday.sendKeys("10.2");
+				
+					//save
+				Thread.sleep(5000);
+				WebElement saveData=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[3]"));
+				saveData.click();
+				
+				System.out.println("Test3.6.6 : Check whether user can save all the entered data.");
+			}
+				
+			@Test(priority=7)
+			public void submitAndApprove () throws InterruptedException {
+				
+				//Test3.7.1 : Validate Submit Button
+				Thread.sleep(2000);
+				WebElement submitBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[3]/div[2]/button[2]"));
+				submitBtn.click();
+				
+				System.out.println("Test3.7.1 : Validate 'Submit' Button");
+				
+				//Test3.7.2 : Check whether the user can approve a timesheet with an approval comment.
+				
+					//Add comment
+				Thread.sleep(5000);
+				WebElement cmnt=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[1]/div/div/div/div[2]/textarea"));
+				cmnt.sendKeys("Timesheet Approved.");
+				
+				
+					//approve
+				Thread.sleep(4000);
+				WebElement approveBtn=driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div[1]/form/div[2]/button[2]"));
+				approveBtn.click();
+				
+				System.out.println("Test3.7.2 : Check whether the user can approve a timesheet with an approval comment.");
+					
+				Thread.sleep(5000);
+			}
+			
+			
+						
+			
+			@AfterTest
+			public void aftertest() {
+				driver.quit();
+			}			
+}

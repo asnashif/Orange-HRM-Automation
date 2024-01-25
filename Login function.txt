@@ -1,0 +1,161 @@
+package OrangeHRM;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class Login {
+	
+	//Global Declarations
+	public String baseUrl="https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
+	String driverPath="C:\\Users\\Asna\\eclipse-workspace\\SQAassignment\\ResourceFile\\ChromeDriver\\V113.exe";
+	public WebDriver driver;
+	
+	@BeforeTest
+	public void launchBrowser() {
+	System.out.println("Launching Browser");
+	System.setProperty("webdriver.chrome.driver", driverPath);
+	driver=new ChromeDriver();
+	driver.manage().window().maximize();
+	driver.get(baseUrl);
+	
+	}
+	@Test(priority=1)
+	public void InvalidLogin() throws InterruptedException {
+		//call the base URL
+		driver.get(baseUrl);
+		Thread.sleep(3000);
+	
+		//Test 1 :check whether the user can login to the system without username and password
+		
+		//Identify web elements
+		WebElement userNameTxt1 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		WebElement PasswordTxt1 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		WebElement LoginBtn1 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		
+		LoginBtn1.click();
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.1 : Check whether the user can login to the system without username and password");
+		
+		
+		//Test 2 :check whether the user can login to the system without username and with a valid password
+		//Identify web elements
+		Thread.sleep(5000);
+		WebElement userNameTxt2 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt2.sendKeys("");
+		
+		WebElement PasswordTxt2 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt2.sendKeys("admin123");
+		
+		WebElement LoginBtn2 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn2.click();
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.2 : Check whether the user can login to the system without username and with a valid password");
+	
+		
+		//Test 3 :check whether the user can login to the system with a valid username and without password
+		//Identify web elements
+		Thread.sleep(5000);
+		WebElement userNameTxt3 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt3.sendKeys("Admin");
+		
+		WebElement PasswordTxt3 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt3.sendKeys("");
+		
+		WebElement LoginBtn3 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn3.click();
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.3 : Check whether the user can login to the system with a valid username and without password");
+
+		
+		//Test 4 :check whether the user can login to the system with Invalid username and password
+		//Identify web elements
+		Thread.sleep(5000);
+		WebElement userNameTxt4 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt4.sendKeys("abc");
+		
+		WebElement PasswordTxt4 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt4.sendKeys("123");
+		
+		WebElement LoginBtn4 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn4.click();
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.4 : Check whether the user can login to the system with Invalid username and password");
+
+
+		//Test 5 :check whether the user can login to the system with valid username and Invalid password
+		//Identify web elements
+		Thread.sleep(5000);
+		WebElement userNameTxt5 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt5.sendKeys("Admin");
+		
+		WebElement PasswordTxt5 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt5.sendKeys("123");
+		
+		WebElement LoginBtn5 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn5.click();
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.5 : Check whether the user can login to the system with valid username and Invalid password");
+
+		//Test 6 :check whether the user can login to the system with Invalid username and valid password
+		//Identify web elements
+		Thread.sleep(5000);
+		WebElement userNameTxt6 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt6.sendKeys("abc");
+				
+		WebElement PasswordTxt6 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt6.sendKeys("admin123");
+				
+		WebElement LoginBtn6 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn6.click();
+				
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.6 : Check whether the user can login to the system with Invalid username and valid password");
+	
+	}
+	
+	@Test(priority=2)
+	public void ValidLogin() throws InterruptedException {
+		//call the base URL
+		driver.get(baseUrl);
+		Thread.sleep(3000);
+	
+		//Test7 :check whether the user can login to the system with valid username and password
+		
+		//Identify web elements
+		WebElement userNameTxt7 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[1]/div/div[2]/input"));
+		userNameTxt7.sendKeys("Admin");
+				
+		WebElement PasswordTxt7 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[2]/div/div[2]/input"));
+		PasswordTxt7.sendKeys("admin123");
+				
+		WebElement LoginBtn7 = driver.findElement(By.xpath("//*[@id=\"app\"]/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"));
+		LoginBtn7.click();
+		
+		Thread.sleep(3000);
+		driver.navigate().refresh();
+		System.out.println("Test 1.7 : check whether the user can login to the system with valid username and password");
+	}
+
+		
+		@AfterTest
+		public void aftertest() {
+			driver.quit();
+		}
+
+
+}
